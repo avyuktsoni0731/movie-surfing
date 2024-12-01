@@ -4,30 +4,32 @@ const movieTitle = document.getElementById("movieTitle");
 const movieYear = document.getElementById("movieYear");
 const moviePlot = document.getElementById("moviePlot");
 
-const apiKey = 'eb1fd5dc';
+const apiKey = "eb1fd5dc";
 
-searchBtn.addEventListener("click", function() {
-    const movieName = movieInput.value.trim(); //trim removes any like space in the input so code works yay
-    if (movieName === "") {
-        alert("enter a movie name first!"); //if they aint typing stuff n pressing enter, u get an alert
-        return;
-    }
-    const proxy = "https://cors-anywhere.herokuapp.com/";
-    const url = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKey}`;
+searchBtn.addEventListener("click", function () {
+  const movieName = movieInput.value.trim(); //trim removes any like space in the input so code works yay
+  if (movieName === "") {
+    alert("enter a movie name first!"); //if they aint typing stuff n pressing enter, u get an alert
+    return;
+  }
+  //   const proxy = "https://cors-anywhere.herokuapp.com/";
+  //   const url = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKey}`;
+  const url = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKey}`;
 
-    fetch(proxy + url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.Response === "True") {
-                movieTitle.textContent = data.Title;
-                movieYear.textContent = `Year: ${data.Year}`;
-                moviePlot.textContent = data.Plot;                    
-            } else {
-                alert("aww sorry movie not found 😔.");
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching data:", error);
-            alert("oops! something is wrong.");
-        });
+  fetch(url)
+    //   fetch(proxy + url)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.Response === "True") {
+        movieTitle.textContent = data.Title;
+        movieYear.textContent = `Year: ${data.Year}`;
+        moviePlot.textContent = data.Plot;
+      } else {
+        alert("aww sorry movie not found 😔.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+      alert("oops! something is wrong.");
+    });
 });
